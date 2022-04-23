@@ -9,6 +9,8 @@ class PongGame:
         self._white = (255, 255, 255)
         self._black = (0, 0, 0)
         self._red = (255, 0, 0)
+        self._disp = self._st.run()
+        self._space_toggle = False
 
     def process_input(self):
         pl = self._pl
@@ -19,15 +21,26 @@ class PongGame:
             pl.move_left()
         elif keys[pygame.K_RIGHT]:
             pl.move_right()
-    def run(self):
-        st = self._st
-        disp = st.run()
-        while True:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
+    
+    def handle_events(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    self._space_toggle = not self._space_toggle
+        if not self._space_toggle:
             self.process_input()
-            disp.fill(self._black)
-            pygame.draw.rect(disp, self._white, self._pl.player())
-            pygame.display.update()
+
+
+    def draw_screen(self):
+        self._disp.fill(self._black)
+        pygame.draw.rect(self._disp, self._white, self._pl.player())
+        pygame.display.update()
+
+    def run(self):
+        while True:
+            self.handle_events()
+            self.draw_screen()
+            
