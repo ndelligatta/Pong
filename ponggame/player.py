@@ -1,4 +1,3 @@
-import pygame, math
 from .settings import Settings
 
 class Player:
