@@ -9,7 +9,6 @@ class PongGame:
         self._white = (255, 255, 255)
         self._black = (0, 0, 0)
         self._red = (255, 0, 0)
-        self._instance = None
 
     def process_input(self):
         pl = self._pl
